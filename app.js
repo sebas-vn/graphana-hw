@@ -9,14 +9,14 @@ const logger = winston.createLogger({
     format: winston.format.json(),
     defaultMeta: { service: 'user_service' },
     transports: [
-        new winston.transports.File({ filename: '/var/log/error.log', level: 'error'}),
-        new winston.transports.File({ filename: '/var/log/combined.log' }),
+        new winston.transports.File({ filename: '/shared-volume/var/log/error.log', level: 'error'}),
+        new winston.transports.File({ filename: '/shared-volume/var/log/combined.log' }),
         new winston.transports.Console({ format: winston.format.simple() })
     ]
 })
 
 app.get("/", (req, res) => {
-    logger.log({level: 'info', message: `action="GET, status_code=${res.statusCode} job=user_service` })
+    logger.log({level: 'info', message: `{action: "GET", status_code: ${res.statusCode} job:user_service}`})
     res.send("Hello World");
 })
 
